@@ -1,45 +1,27 @@
 const fs = require('fs')
+const axios = require('axios')
 
-const requestProxy = require("request").defaults({
-  proxy: "http://127.0.0.1:7890",
-  rejectUnauthorized: false,
-})
 
 const claim_url = 'https://api.poap.xyz/actions/claim-qr'
 
 // helper methods
 let synchronous_request = function (url, params) {
-  
-  let options = {
-    url: url,
-    form: params
-  }
-
   if (params == undefined) {
 
     return new Promise(function (resolve, reject) {
-      // If you don't use proxy, require("request").get(...) is ok
-      // require("request").get(options, function (error, response, body) {
-      requestProxy.get(options, function (error, response, body) {
-            if (error) {
-                reject(error)
-            } else {
-                resolve(body)
-            }
-        })
+      axios.get(url).then(res => {
+        resolve(res.data);
+      }).catch(err => {
+        reject(err)
+      });
     })
   } else {
-
     return new Promise(function (resolve, reject) {
-      // If you don't use proxy, require("request").post(...) is ok
-      // require("request").post(options, function (error, response, body) {
-      requestProxy.post(options, function (error, response, body) {
-        if (error) {
-            reject(error)
-        } else {
-            resolve(body)
-        }
-      })
+      axios.post(url, params).then(res => {
+        resolve(res.data);
+      }).catch(err => {
+        reject(err);
+      });
     })
   }
 }
@@ -55,10 +37,7 @@ async function main() {
   let qr_hash = a[a.length - 1]
 
   let url = claim_url + '?qr_hash=' + qr_hash
-  let body = await synchronous_request(url)
-  console.log(body)
-
-  let o = JSON.parse(body)
+  let o = await synchronous_request(url)
   if (o.claimed == false) {
     if (process.argv.length < 4) {
       console.log('node claim qr_hash address')
@@ -86,11 +65,11 @@ async function main() {
   } else {
     console.log('\n' + o.beneficiary + ' had claimed this poap')
   }
-} 
+}
 
 function get_real_address(account_name) {
   let list = fs.readFileSync('address_list.txt')
-  let lines = list.toString().split('\n')
+  let lines = list.toString().split('\r\n')
   for (let index in lines) {
     let line = lines[index]
     let arr = line.split(':')
