@@ -46,13 +46,13 @@ async function main() {
             console.log(`${address} claimed POAP[${o.qr_hash}]`);
           }
         ).catch(err => {
-          console.log(`[${address}] ${err.response.data.message}`);
+          console.log(`[${address}] ${err.response.data.message} POAP[${o.qr_hash}]`);
         })
 
       }
 
     } else {
-      console.log(`${o.beneficiary} + ' had claimed this POAP[${qr_hash}]`)
+      console.log(`[${o.beneficiary}] had claimed this POAP[${qr_hash}]`)
     }
   }
 
