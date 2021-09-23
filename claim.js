@@ -30,28 +30,29 @@ let synchronous_request = function (url, params) {
 async function main() {
   let addressList = getLines('address_list.txt');
   let claimList = getLines('claim_list.txt');
-  let index =0;
   for (let claim of claimList) {
     let a = claim.split('/');
     let qr_hash = a[a.length - 1];
     let url = claim_url + '?qr_hash=' + qr_hash;
     let o = await synchronous_request(url)
     if (o.claimed == false) {
-      if(index>=addressList.length){
-        return;
+      for (let address of addressList) {
+        await synchronous_request(claim_url, {
+          qr_hash: o.qr_hash,
+          address: address,
+          secret: o.secret,
+        }).then(
+          res => {
+            console.log(`${address} claimed POAP[${o.qr_hash}]`);
+          }
+        ).catch(err => {
+          console.log(`[${address}] ${err.response.data.message}`);
+        })
+
       }
-      let body = await synchronous_request(claim_url, {
-        qr_hash: o.qr_hash,
-        address: addressList[index],
-        secret: o.secret,
-      })
 
-      // console.log(body)
-
-      console.log('\n* claimed for ' + addressList[index]);
-      index++;
     } else {
-      console.log('\n' + o.beneficiary + ' had claimed this poap')
+      console.log(`${o.beneficiary} + ' had claimed this POAP[${qr_hash}]`)
     }
   }
 
