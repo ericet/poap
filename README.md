@@ -5,7 +5,7 @@
 2. 从github上复制代码
 
   ```
-  git clone git@github.com:waxcloud2021/poap.git
+  git clone https://github.com/ericet/poap.git
   ```
 
 3. 安装运行脚本需要的依赖包
@@ -14,27 +14,7 @@
   npm install
   ```
 
-4. 配置好你使用代理的端口号（科学上网）
-
-  ```
-  proxy: "http://127.0.0.1:7890",
-  ```
-
-  端口号7890按实际修改
-
-5. 如果你没有使用代理，跳过第4步，代码中做一下切换(两处)
-
-  ```
-  require("request").get(options, function (error, response, body) {
-  // requestProxy.get(options, function (error, response, body) {
-  ```
-
-  ```
-  require("request").post(options, function (error, response, body) {
-  // requestProxy.post(options, function (error, response, body) {
-  ```
-
-6. 编辑address_list.txt文件
+4. 编辑address_list.txt文件
 
   ```
   eth1:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
