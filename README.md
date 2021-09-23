@@ -14,34 +14,27 @@
   npm install
   ```
 
-4. 编辑address_list.txt文件
+4. 复制钱包地址到address_list.txt文件。每行一个地址
 
   ```
-  eth1:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  eth2:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  eth3:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  4:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  5:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  6:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  7:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  8:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  9:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
-  10:0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
+  0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead
   ......
   ```
 
-  冒号的左边是你为钱包地址起的别名，也可以是序号，随意命名，不要有冒号；右边是你的钱包地址，请确保地址正确. 编辑好后保存
+5. 复制通过POAP-bot或https://poap.website/xxxxxxxxxx 得到claim POAP的6位code(qr_hash)或是带有code的URL到claim_list.txt
 
-
-7. 通过POAP-bot或https://poap.website/xxxxxxxxxx 得到claim POAP的6位code(qr_hash)或是带有code的URL以后，如下运行脚本(xxxxxx替换为真实code)
-
+6. 运行脚本
   ```
-  node claim xxxxxx 4
-  ```
-  或
-  ```
-  node claim http://poap.xyz/claim/xxxxxx 4
+  node claim
   ```
 
-  便把POAP claim到了别名为 4 的地址里
 
