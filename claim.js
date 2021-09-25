@@ -31,28 +31,30 @@ async function main() {
   let addressList = getLines('address_list.txt');
   let claimList = getLines('claim_list.txt');
   for (let claim of claimList) {
-    let a = claim.split('/');
-    let qr_hash = a[a.length - 1];
-    let url = claim_url + '?qr_hash=' + qr_hash;
-    let o = await synchronous_request(url)
-    if (o.claimed == false) {
-      for (let address of addressList) {
-        await synchronous_request(claim_url, {
-          qr_hash: o.qr_hash,
-          address: address,
-          secret: o.secret,
-        }).then(
-          res => {
-            console.log(`${address} claimed POAP[${o.qr_hash}]`);
-          }
-        ).catch(err => {
-          console.log(`[${address}] ${err.response.data.message} POAP[${o.qr_hash}]`);
-        })
+    if (claim) {
+      let a = claim.split('/');
+      let qr_hash = a[a.length - 1];
+      let url = claim_url + '?qr_hash=' + qr_hash;
+      let o = await synchronous_request(url)
+      if (o.claimed == false) {
+        for (let address of addressList) {
+          await synchronous_request(claim_url, {
+            qr_hash: o.qr_hash,
+            address: address,
+            secret: o.secret,
+          }).then(
+            res => {
+              console.log(`${address} claimed POAP[${o.qr_hash}]`);
+            }
+          ).catch(err => {
+            console.log(`[${address}] ${err.response.data.message} POAP[${o.qr_hash}]`);
+          })
 
+        }
+
+      } else {
+        console.log(`[${o.beneficiary}] had claimed this POAP[${qr_hash}]`)
       }
-
-    } else {
-      console.log(`[${o.beneficiary}] had claimed this POAP[${qr_hash}]`)
     }
   }
 
@@ -60,7 +62,7 @@ async function main() {
 
 function getLines(filename) {
   let list = fs.readFileSync(filename)
-  let lines = list.toString().split('\r\n')
+  let lines = list.toString().split(/\r?\n/)
   return lines;
 }
 
