@@ -82,7 +82,7 @@ http://poap.xyz/claim/f3tlad
 7. 用和步骤6同一台电脑同一个IP运行脚本(避免脚本登录时出现captcha required错误)
 
   ```
-  node discord 帐号密码或- 暗语
+  node discord 暗语
   ```
   脚本依次登录discord.txt文件里帐号并向POAP-bot发送暗语以获得领取POAP的code. 获取POAP claim code后，脚本会自动领取POAP
 
